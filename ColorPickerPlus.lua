@@ -7,13 +7,30 @@
 -- 1.12 vanilla WoW servers (i.e. Nostalrius)
 
 ColorPickerPlus = AceLibrary("AceAddon-2.0"):new(
-    "AceEvent-2.0",
-    "AceHook-2.1")
+"AceConsole-2.0",
+"AceEvent-2.0",
+"AceHook-2.1")
 
 local ColorPickerPlus = ColorPickerPlus
 local initialized = nil
 local colorBuffer = {}
 local editingText = nil
+
+function ColorPickerPlus:OnInitialize()
+    self:RegisterChatCommand({ "/cpp" }, {
+        type = "group",
+        args = {
+            show = {
+                name = "Show frame",
+                desc = "Show the color picker frame",
+                type = "execute",
+                func = function()
+                    ColorPickerFrame:Show()
+                end
+            }
+        }
+    })
+end
 
 function ColorPickerPlus:OnEnable()
     -- Event received when starting, reloading or zoning
